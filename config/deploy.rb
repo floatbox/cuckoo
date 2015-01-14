@@ -2,7 +2,7 @@
 lock '3.3.5'
 
 set :application, 'cuckoo'
-set :repo_url, 'git@example.com:floatbox/cuckoo.git'
+set :repo_url, 'git@github.com:floatbox/cuckoo.git'
 
 set :deploy_to, '/home/deployer/apps/cuckoo'
 

@@ -18,29 +18,30 @@ stderr_path "#{shared_dir}/log/unicorn.stderr.log"
 stdout_path "#{shared_dir}/log/unicorn.stdout.log"
 
 # Set master PID location
-pidfile "#{shared_dir}/tmp/pids/unicorn.pid"
-pidfile_old = pidfile + '.oldbin'
-pid pidfile
+pid "#{shared_dir}/tmp/pids/unicorn.pid"
 
 # Garbage collection
 GC.copy_on_write_friendly = true if GC.respond_to?(:copy_on_write_friendly=)
 
+#
+
 before_exec do |server|
-  ENV["BUNDLE_GEMFILE"] = "#{rails_root}/Gemfile"
+  ENV['BUNDLE_GEMFILE'] = "#{app_dir}/Gemfile"
 end
 
 before_fork do |server, worker|
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.connection.disconnect!
-  if File.exists?(pidfile_old) && server.pid != pidfile_old
+  defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
+  old_pid = "#{server.config[:pid]}.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
     begin
-      Process.kill("QUIT", File.read(pidfile_old).to_i)
+      sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
+      Process.kill(sig, File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
+      # someone else did our job for us
     end
   end
 end
 
 after_fork do |server, worker|
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.establish_connection
+  defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
 end
