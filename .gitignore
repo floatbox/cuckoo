@@ -14,9 +14,10 @@
 /tmp
 
 
-/config/secrets.yml
+config/secrets.yml
+config/database.yml
 .ruby-version
 .rspec
 .rvmrc
 /.capistrano
-
+config/deploy/*
