@@ -15,6 +15,8 @@
 
 
 config/secrets.yml
+config/twitter_app.yml
+config/redbooth_app.yml
 config/database.yml
 .ruby-version
 .rspec
