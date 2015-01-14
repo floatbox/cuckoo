@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :tasks
   root 'tasks#index'
+  get '/auth/:provider/callback' => 'auth#callback'
 
   mount Sidekiq::Web => '/sidekiq'
 
