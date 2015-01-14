@@ -26,7 +26,7 @@ GC.copy_on_write_friendly = true if GC.respond_to?(:copy_on_write_friendly=)
 #
 
 before_exec do |server|
-  ENV['BUNDLE_GEMFILE'] = "#{app_dir}/Gemfile"
+  ENV['BUNDLE_GEMFILE'] = "#{app_dir}/current/Gemfile"
 end
 
 before_fork do |server, worker|
