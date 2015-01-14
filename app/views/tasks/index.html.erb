@@ -1,0 +1,25 @@
+
+<h1>New Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Author</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.author %></td>
+        <td><%= task.title %></td>
+        <td><%= task.status %></td>
+        <td><%= task.created_at.strftime('%F %T') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
