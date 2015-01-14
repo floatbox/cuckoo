@@ -10,6 +10,9 @@ gem 'mysql2'
 
 gem 'tweetstream'
 
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -56,6 +59,7 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
+  gem 'capistrano-sidekiq'
 end
 
 group :production do

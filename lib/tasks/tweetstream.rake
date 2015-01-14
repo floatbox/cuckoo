@@ -15,12 +15,7 @@ namespace :ts do
     end
 
     TweetStream::Client.new.track(twitter_app['track_key']) do |status|
-      ActiveRecord::Base.connection.reconnect!
-      Task.create(
-          author: status.user.screen_name,
-          title: status.text,
-          status: 'new'
-          )
+      InboxWorker.perform_async(status.user.screen_name, status.text)
       puts "[#{status.user.screen_name}] #{status.text}"
     end
 
