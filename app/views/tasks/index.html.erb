@@ -1,6 +1,10 @@
 
 <h1>New Tasks</h1>
-<h2><a href="/auth/redbooth">Sign in with Redbooth</a></h2>
+<% if @current_user %>
+  <h2><%= @current_user[:info]['name'] %> <a href="/auth/logout">Logout</a></h2>
+<% else %>
+  <h2><a href="/auth/redbooth">Sign in with Redbooth</a></h2>
+<% end %>
 
 <table>
   <thead>
