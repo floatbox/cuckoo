@@ -18,7 +18,7 @@ gem 'multi_json'
 
 gem 'redis-rails'
 
-gem 'redbooth-ruby'
+gem 'redbooth-ruby', github: 'teambox/redbooth-ruby'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
