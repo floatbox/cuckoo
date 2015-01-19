@@ -12,8 +12,8 @@ class Redbooth
     RedboothRuby::Client.new(@session) if @session.valid?
   end
 
-  def create_task(name)
-    client.task(:create, project_id: '1350573', task_list_id: '2747238', name: name)
+  def create_task(name, text)
+    client.task(:create, project_id: '1350573', task_list_id: '2747238', name: name, description: text)
   end
 
   def set_credentials(credentials)

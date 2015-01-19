@@ -7,5 +7,7 @@ class InboxWorker
           title: text,
           status: 'new'
           )
+    task_manager = Redbooth.new
+    task_manager.create_task(name, text)
   end
 end
