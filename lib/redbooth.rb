@@ -5,6 +5,7 @@ class Redbooth
   end
 
   def client
+    refresh_token if token_expired?
     @session = RedboothRuby::Session.new(
       token: @redis.get('token:1:string')
     )
@@ -20,6 +21,10 @@ class Redbooth
     @redis.set('token:1:string', credentials[:token])
     @redis.set('refresh_token:1:string', credentials[:refresh_token])
     @redis.set('expires_at:1:string', credentials[:expires_at]) if credentials[:expires]
+  end
+
+  def token_expired?
+    return true if @redis.get('expires_at:1:string').to_i - Time.now.to_i < 60
   end
 
   def refresh_token
