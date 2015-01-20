@@ -8,7 +8,7 @@ class AuthController < ApplicationController
       info: omniauth_auth['info'].to_h,
       credentials: omniauth_auth['credentials'].to_h
     }
-    Redbooth.new().set_credentials(omniauth_auth['credentials'])
+    PmTools::Strategy.new(omniauth_auth['provider'], credentials: omniauth_auth['credentials'])
     redirect_to root_url
   end
 
