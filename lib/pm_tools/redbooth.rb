@@ -1,6 +1,8 @@
 module PmTools
   class Redbooth
 
+    TASK_LIST_NAME = 'Twitter mentions'
+
     include PmTools::Oauth
     include PmTools::User
     include PmTools::RedboothUser
@@ -37,6 +39,20 @@ module PmTools
         name: name,
         description: text
       )
+    end
+
+    def get_user_projects
+      client.project(:index).all
+    end
+
+    def create_task_list(name = TASK_LIST_NAME)
+      client.task_list(:create, project_id: project_id, name: name)
+    end
+
+    def get_task_list(tsid)
+      client.task_list(:show, id: tsid)
+    rescue OAuth2::Error
+      return false
     end
 
   end
