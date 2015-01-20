@@ -2,10 +2,13 @@ module PmTools
   class Redbooth
 
     include PmTools::Oauth
+    include PmTools::User
+    include PmTools::RedboothUser
 
     def initialize(attributes={})
       @redis = Redis.new
       set_credentials(attributes[:credentials]) if attributes.try(:[], :credentials)
+      set_user(attributes[:user]) if attributes.try(:[], :user)
     end
 
     def provider_client
@@ -29,8 +32,8 @@ module PmTools
 
     def create_task(name, text, context)
       client.task(:create,
-        project_id: '1350573',
-        task_list_id: '2747238',
+        project_id: project_id,
+        task_list_id: task_list_id,
         name: name,
         description: text
       )

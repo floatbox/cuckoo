@@ -41,7 +41,7 @@ module PmTools
       return true if expires_at.to_i - Time.now.to_i < 60
     end
 
-    #protected
+    private
 
     def refresh_token!
       oauth_client = OAuth2::Client.new(

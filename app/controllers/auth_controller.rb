@@ -3,12 +3,13 @@ class AuthController < ApplicationController
   # GET /callback
   def callback
     omniauth_auth = request.env['omniauth.auth']
-    session[:current_user] = {
-      id: omniauth_auth['uid'],
-      info: omniauth_auth['info'].to_h,
-      credentials: omniauth_auth['credentials'].to_h
+    current_user = {
+      uid: omniauth_auth['uid'],
+      name: omniauth_auth['info']['name'],
+      email: omniauth_auth['info']['email'],
     }
-    PmTools::Strategy.new(omniauth_auth['provider'], credentials: omniauth_auth['credentials'])
+    session[:current_user] = current_user
+    PmTools::Strategy.new(omniauth_auth['provider'], credentials: omniauth_auth['credentials'], user: current_user)
     redirect_to root_url
   end
 
