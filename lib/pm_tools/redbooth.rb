@@ -39,14 +39,20 @@ module PmTools
         name: name,
         description: text
       )
+    rescue OAuth2::Error
+      return false
     end
 
     def get_user_projects
       client.project(:index).all
+    rescue OAuth2::Error
+      return false
     end
 
     def create_task_list(name = TASK_LIST_NAME)
       client.task_list(:create, project_id: project_id, name: name)
+    rescue OAuth2::Error
+      return false
     end
 
     def get_task_list(tsid)
