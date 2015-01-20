@@ -23,7 +23,7 @@ module PmTools
     end
 
     def expires_at
-      @redis.get('expires_at:1:int')
+      @redis.get('expires_at:1:int').to_i
     end
 
     def expires_at= value
@@ -38,7 +38,7 @@ module PmTools
     end
 
     def token_expired?
-      return true if expires_at.to_i - Time.now.to_i < 60
+      return true if expires_at < Time.now.to_i
     end
 
     private
